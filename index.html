@@ -1,374 +1,567 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>The Garden of Forking Paths</title>
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Garden of Forking Paths</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=League+Script&family=IBM+Plex+Mono&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-    html {
-      height: auto;
-      overflow-y: auto;
-      overflow-x: hidden;
-    }
+        html, body {
+            font-family: 'League Script', cursive !important;
+            overflow-x: hidden;
+            overflow-y: auto;
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            background: rgb(27, 27, 55) !important;
+        }
 
-    body {
-      width: 100%;
-      height: auto;
-      min-height: 100vh;
-      overflow-y: auto;
-      overflow-x: hidden;
-      scroll-behavior: smooth;
-    }
+        .app {
+            width: 100vw;
+        }
 
-    .section {
-      width: 100%;
-      min-height: 100vh;
-      height: 100vh;
-      position: relative;
-      background-image: linear-gradient(rgba(255, 255, 255, 0) 0%, rgba(27, 27, 55, 0.2) 100%), linear-gradient(90deg, rgb(27, 27, 55) 0%, rgb(27, 27, 55) 100%);
-      color: white;
-      line-height: normal;
-      font-style: normal;
-      white-space: pre-wrap;
-    }
+        .screen {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            min-height: 100vh;
+            color: white;
+            white-space: pre-wrap;
+            font-style: normal;
+        }
 
-    #section1 {
-      overflow: hidden;
-    }
+        .screen p {
+            position: absolute;
+            margin: 0;
+        }
 
-    /* Flowing text section styles */
-    .text-element {
-      position: absolute;
-      height: 120px;
-      width: 856px;
-      cursor: pointer;
-      will-change: transform, opacity;
-      pointer-events: auto;
-    }
+        /* Screen backgrounds */
+        .screen-1 {
+            background: linear-gradient(rgba(255, 255, 255, 0) 0%, rgba(27, 27, 55, 0.2) 100%), 
+                        linear-gradient(90deg, rgb(27, 27, 55) 0%, rgb(27, 27, 55) 100%);
+            line-height: normal;
+        }
 
-    .text-element.league-script {
-      font-family: 'League Script', cursive, sans-serif;
-    }
+        .screen-1 p {
+            animation: riverGlow 4s ease-in-out infinite;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.5),
+                         0 0 20px rgba(255, 255, 255, 0.3),
+                         0 0 30px rgba(255, 255, 255, 0.2);
+        }
 
-    .text-element.ibm-plex {
-      font-family: 'IBM Plex Mono', monospace, sans-serif;
-    }
+        .screen-1 p:nth-child(odd) {
+            animation: riverGlow 4s ease-in-out infinite;
+            animation-delay: 0.5s;
+        }
 
-    .text-element:hover {
-      text-shadow: 0 0 8px rgba(255, 255, 255, 0.8), 
-                   0 0 16px rgba(255, 255, 255, 0.6), 
-                   0 0 24px rgba(255, 255, 255, 0.4);
-      animation: glow-pulse 1.5s ease-in-out infinite !important;
-      opacity: 1 !important;
-      z-index: 100;
-    }
+        .screen-1 p:nth-child(3n) {
+            animation: riverGlow 3.5s ease-in-out infinite;
+            animation-delay: 1s;
+        }
 
-    /* Static text section styles */
-    .static-text {
-      position: absolute;
-      cursor: default;
-    }
+        .screen-1 p:nth-child(5n) {
+            animation: riverGlow 4.5s ease-in-out infinite;
+            animation-delay: 1.5s;
+        }
 
-    .static-text.league-script {
-      font-family: 'League Script', cursive, sans-serif;
-    }
+        @keyframes riverGlow {
+            0% {
+                opacity: 0.3;
+                transform: translateX(0) translateY(0);
+                text-shadow: 0 0 5px rgba(255, 255, 255, 0.3),
+                             0 0 10px rgba(255, 255, 255, 0.2);
+            }
+            25% {
+                opacity: 0.7;
+                transform: translateX(-2px) translateY(1px);
+                text-shadow: 0 0 15px rgba(255, 255, 255, 0.6),
+                             0 0 25px rgba(255, 255, 255, 0.4),
+                             0 0 35px rgba(255, 255, 255, 0.2);
+            }
+            50% {
+                opacity: 1;
+                transform: translateX(2px) translateY(-1px);
+                text-shadow: 0 0 20px rgba(255, 255, 255, 0.8),
+                             0 0 30px rgba(255, 255, 255, 0.5),
+                             0 0 40px rgba(255, 255, 255, 0.3);
+            }
+            75% {
+                opacity: 0.6;
+                transform: translateX(1px) translateY(2px);
+                text-shadow: 0 0 15px rgba(255, 255, 255, 0.5),
+                             0 0 25px rgba(255, 255, 255, 0.3);
+            }
+            100% {
+                opacity: 0.3;
+                transform: translateX(0) translateY(0);
+                text-shadow: 0 0 5px rgba(255, 255, 255, 0.3),
+                             0 0 10px rgba(255, 255, 255, 0.2);
+            }
+        }
 
-    .static-text.ibm-plex {
-      font-family: 'IBM Plex Mono', monospace, sans-serif;
-    }
+        .screen-2 {
+            background: linear-gradient(rgba(255, 249, 249, 0) 0%, rgba(0, 0, 0, 0.2) 100%), 
+                        linear-gradient(90deg, rgb(27, 27, 55) 0%, rgb(27, 27, 55) 100%);
+            line-height: 0;
+        }
 
-    .word-highlight {
-      cursor: pointer;
-      display: inline-block;
-      transition: all 0.3s ease;
-      position: relative;
-    }
+        .screen-2 .keyword-link {
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
 
-    .word-highlight:hover {
-      text-shadow: 0 0 8px rgba(255, 255, 255, 0.8), 
-                   0 0 16px rgba(255, 255, 255, 0.6), 
-                   0 0 24px rgba(255, 255, 255, 0.4);
-      animation: glow-pulse 1.5s ease-in-out infinite;
-      transform: scale(1.1);
-      z-index: 100;
-    }
+        .screen-2 .keyword-link:hover {
+            text-shadow: 0 0 20px rgba(255, 255, 255, 0.9),
+                         0 0 30px rgba(255, 255, 255, 0.6),
+                         0 0 40px rgba(255, 255, 255, 0.4),
+                         0 0 50px rgba(255, 255, 255, 0.2);
+            transform: scale(1.1);
+            color: rgba(255, 255, 255, 1);
+        }
 
-    @keyframes glow-pulse {
-      0% {
-        text-shadow: 0 0 8px rgba(255, 255, 255, 0.8), 
-                     0 0 16px rgba(255, 255, 255, 0.6), 
-                     0 0 24px rgba(255, 255, 255, 0.4);
-      }
-      50% {
-        text-shadow: 0 0 12px rgba(255, 255, 255, 1), 
-                     0 0 24px rgba(255, 255, 255, 0.8), 
-                     0 0 36px rgba(255, 255, 255, 0.6);
-      }
-      100% {
-        text-shadow: 0 0 8px rgba(255, 255, 255, 0.8), 
-                     0 0 16px rgba(255, 255, 255, 0.6), 
-                     0 0 24px rgba(255, 255, 255, 0.4);
-      }
-    }
-  </style>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400&family=League+Script&display=swap" rel="stylesheet">
+        .screen-2 span:not(.keyword-link) {
+            transition: all 0.3s ease;
+        }
+
+        .screen-2 span:not(.keyword-link):hover {
+            text-shadow: 0 0 15px rgba(255, 255, 255, 0.7),
+                         0 0 25px rgba(255, 255, 255, 0.4),
+                         0 0 35px rgba(255, 255, 255, 0.2);
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        .active-page {
+            position: fixed !important;
+            top: 0;
+            left: 0;
+        }
+
+        .screen-3, .screen-4, .screen-5, .screen-6, .screen-7, .screen-8 {
+            background: linear-gradient(rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.2) 100%), 
+                        linear-gradient(90deg, rgb(27, 27, 55) 0%, rgb(27, 27, 55) 100%);
+            line-height: normal;
+        }
+
+        .ibm-plex {
+            font-family: 'IBM Plex Mono', monospace;
+        }
+
+        /* Back button */
+        .back-button {
+            position: fixed;
+            top: 30px;
+            left: 30px;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            display: none;
+        }
+
+        .back-button:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: scale(1.05);
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+        }
+
+        .back-button.visible {
+            display: block;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .screen p {
+                font-size: 0.7em !important;
+            }
+            .back-button {
+                top: 15px;
+                left: 15px;
+                padding: 8px 16px;
+                font-size: 12px;
+            }
+        }
+    </style>
 </head>
 <body>
-  <!-- Section 1: Flowing texts -->
-  <div id="section1" class="section"></div>
-  
-  <!-- Section 2: Static texts with keywords -->
-  <div id="section2" class="section">
-    <p class="static-text league-script" style="position: absolute; height: 120px; left: 457px; font-size: 24px; top: 122px; width: 856px;">the garden of forking paths</p>
-    
-    <p class="static-text ibm-plex" style="position: absolute; line-height: 0; left: 75px; font-size: 0px; top: 73px; width: 1255px;">
-      <span style="line-height: normal; font-size: 24px;">= .   '  . (/     ?                 </span>
-      <span class="word-highlight" style="line-height: normal; font-size: 40px;">time  </span>
-      <span style="line-height: normal; font-size: 24px;">.  | . \ .    ) .     ?</span>
-    </p>
-    
-    <p class="static-text ibm-plex" style="position: absolute; height: 81px; line-height: 0; left: 439px; font-size: 0px; top: 418px; width: 1074px;">
-      <span class="word-highlight" style="line-height: normal; font-size: 40px;">forking </span>
-      <span style="line-height: normal; font-size: 24px;">&lt;&gt;        )(   | .       ''' . </span>
-    </p>
-    
-    <p class="static-text ibm-plex" style="position: absolute; height: 79px; line-height: 0; left: 310px; font-size: 0px; top: 296px; width: 1280px;">
-      <span style="line-height: normal; font-size: 24px;">!  -       :    ,        '                      </span>
-      <span class="word-highlight" style="line-height: normal; font-size: 40px;">interpretation </span>
-      <span style="line-height: normal; font-size: 24px;">. _____________</span>
-    </p>
-    
-    <p class="static-text ibm-plex" style="position: absolute; height: 74px; line-height: 0; left: 532px; font-size: 0px; top: 642px; width: 835px;">
-      <span class="word-highlight" style="line-height: normal; font-size: 40px;">false</span>
-      <span style="line-height: normal; font-size: 24px;">       .....//     (        )</span>
-    </p>
-    
-    <p class="static-text ibm-plex" style="position: absolute; height: 73px; line-height: 0; left: 653px; font-size: 0px; top: 509px; width: 897px;">
-      <span style="line-height: normal; font-size: 24px;">)))) .    ::  ?</span>
-      <span class="word-highlight" style="line-height: normal; font-size: 40px;">         infinity</span>
-    </p>
-    
-    <p class="static-text ibm-plex" style="position: absolute; height: 72px; line-height: 0; left: 243px; font-size: 0px; top: 199px; width: 1280px;">
-      <span style="line-height: normal; font-size: 24px;">_ - _ - .  (       </span>
-      <span class="word-highlight" style="line-height: normal; font-size: 40px;">labyrinth          </span>
-      <span style="line-height: normal; font-size: 24px;">+ ' .    :    | .   /\  ,  . .</span>
-    </p>
-  </div>
-  
-  <script>
-    const textElements = [
-      { text: "the garden of forking paths", left: 361, top: 52, fontSize: 13, font: "League_Script:League_Script" },
-      { text: "the garden of forking paths", left: 303, top: 65, fontSize: 13, font: "League_Script:League_Script" },
-      { text: "the garden of forking paths", left: 600, top: 47, fontSize: 13, font: "League_Script:League_Script" },
-      { text: "the garden of forking paths", left: 552, top: 71, fontSize: 13, font: "League_Script:League_Script" },
-      { text: "the garden of forking paths", left: 818, top: 58, fontSize: 13, font: "League_Script:League_Script" },
-      { text: "the garden of forking paths", left: 591, top: 99, fontSize: 16, font: "League_Script:League_Script" },
-      { text: "the garden of forking paths", left: 445, top: 127, fontSize: 20, font: "League_Script:League_Script" },
-      { text: "the garden of forking paths", left: 714, top: 110, fontSize: 20, font: "League_Script:League_Script" },
-      { text: "the garden of forking paths", left: 521, top: 146, fontSize: 20, font: "League_Script:League_Script" },
-      { text: "the garden of forking paths", left: 482, top: 166, fontSize: 20, font: "League_Script:League_Script" },
-      { text: "the garden of forking paths", left: 465, top: 209, fontSize: 20, font: "League_Script:League_Script" },
-      { text: "the garden of forking paths", left: 377, top: 180, fontSize: 20, font: "League_Script:League_Script" },
-      { text: "the garden of forking paths", left: 334, top: 147, fontSize: 20, font: "League_Script:League_Script" },
-      { text: "the garden of forking paths", left: 256, top: 120, fontSize: 20, font: "League_Script:League_Script" },
-      { text: "the garden of forking paths", left: 617, top: 230, fontSize: 20, font: "League_Script:League_Script" },
-      { text: "the garden of forking paths", left: 475, top: 247, fontSize: 20, font: "League_Script:League_Script" },
-      { text: "the garden of forking paths", left: 513, top: 254, fontSize: 20, font: "League_Script:League_Script" },
-      { text: "the garden of forking paths", left: 596, top: 254, fontSize: 20, font: "League_Script:League_Script" },
-      { text: "the garden of forking paths", left: 492, top: 272, fontSize: 20, font: "League_Script:League_Script" },
-      { text: "the garden of forking paths", left: 465, top: 286, fontSize: 20, font: "League_Script:League_Script" },
-      { text: "the garden of forking paths", left: 407, top: 283, fontSize: 20, font: "League_Script:League_Script" },
-      { text: "the garden of forking paths", left: 482, top: 327, fontSize: 20, font: "League_Script:League_Script" },
-      { text: "the garden of forking paths", left: 521, top: 307, fontSize: 20, font: "League_Script:League_Script" },
-      { text: "the garden of forking paths", left: 600, top: 306, fontSize: 20, font: "League_Script:League_Script" },
-      { text: "the garden of forking paths", left: 422, top: 343, fontSize: 20, font: "League_Script:League_Script" },
-      { text: "the garden of forking paths", left: 596, top: 367, fontSize: 20, font: "League_Script:League_Script" },
-      { text: "the garden of forking paths", left: 534, top: 412, fontSize: 20, font: "League_Script:League_Script" },
-      { text: "the garden of forking paths", left: 465, top: 387, fontSize: 24, font: "League_Script:League_Script" },
-      { text: "the garden of forking paths", left: 280, top: 387, fontSize: 24, font: "League_Script:League_Script" },
-      { text: "the garden of forking paths", left: 390, top: 444, fontSize: 24, font: "League_Script:League_Script" },
-      { text: "the garden of forking paths", left: 424, top: 467, fontSize: 24, font: "League_Script:League_Script" },
-      { text: "the garden of forking paths", left: 492, top: 433, fontSize: 24, font: "League_Script:League_Script" },
-      { text: "the garden of forking paths", left: 521, top: 357, fontSize: 24, font: "League_Script:League_Script" },
-      { text: "the garden of forking paths", left: 482, top: 465, fontSize: 24, font: "League_Script:League_Script" },
-      { text: "the garden of forking paths", left: 378, top: 504, fontSize: 24, font: "League_Script:League_Script" },
-      { text: "the garden of forking paths", left: 318, top: 16, fontSize: 13, font: "League_Script:League_Script" },
-      { text: "the garden of forking paths", left: 35, top: 14, fontSize: 13, font: "League_Script:League_Script" },
-      { text: "the garden of forking paths", left: 241, top: 27, fontSize: 13, font: "League_Script:League_Script" },
-      { text: "the garden of forking paths", left: 2, top: 0, fontSize: 13, font: "League_Script:League_Script" },
-      { text: "the garden of forking paths", left: 536, top: 14, fontSize: 13, font: "League_Script:League_Script" },
-      { text: "the garden of forking paths", left: 430, top: 0, fontSize: 13, font: "League_Script:League_Script" },
-      { text: "the garden of forking paths", left: 640, top: 0, fontSize: 13, font: "League_Script:League_Script" },
-      { text: "the garden of forking paths", left: 852, top: 0, fontSize: 13, font: "League_Script:League_Script" },
-      { text: "the garden of forking paths", left: 1068, top: -2, fontSize: 13, font: "League_Script:League_Script" },
-      { text: "the garden of forking paths", left: 212, top: 0, fontSize: 13, font: "League_Script:League_Script" },
-      { text: "the garden of forking paths", left: 182, top: -27, fontSize: 13, font: "League_Script:League_Script" },
-      { text: "the garden of forking paths", left: 513, top: 29, fontSize: 13, font: "League_Script:League_Script" },
-      { text: "the garden of forking paths", left: 475, top: 39, fontSize: 13, font: "League_Script:League_Script" },
-      { text: "the g", left: 172, top: 73, fontSize: 13, font: "League_Script:League_Script" },
-      { text: "the g", left: -16, top: 185, fontSize: 13, font: "League_Script:League_Script" },
-      { text: "the g", left: 893, top: 155, fontSize: 13, font: "League_Script:League_Script" },
-      { text: "the g", left: 1081, top: 97, fontSize: 13, font: "League_Script:League_Script" },
-      { text: "the g", left: 1241, top: 155, fontSize: 13, font: "League_Script:League_Script" },
-      { text: "the g", left: 1120, top: 111, fontSize: 13, font: "League_Script:League_Script" },
-      { text: "the g", left: 1090, top: 121, fontSize: 13, font: "League_Script:League_Script" },
-      { text: "the g", left: 1202, top: 155, fontSize: 13, font: "League_Script:League_Script" },
-      { text: "the g", left: 1029, top: 181, fontSize: 13, font: "League_Script:League_Script" },
-      { text: "the g", left: 1068, top: 181, fontSize: 13, font: "League_Script:League_Script" },
-      { text: "the g", left: 1168, top: 210, fontSize: 13, font: "League_Script:League_Script" },
-      { text: "the g", left: 1129, top: 220, fontSize: 13, font: "League_Script:League_Script" },
-      { text: "the g", left: 1081, top: 226, fontSize: 13, font: "League_Script:League_Script" },
-      { text: "paths", left: 85, top: 99, fontSize: 13, font: "League_Script:League_Script" },
-      { text: "paths", left: 17, top: 48, fontSize: 13, font: "League_Script:League_Script" },
-      { text: "paths", left: 54, top: 42, fontSize: 13, font: "League_Script:League_Script" },
-      { text: "paths", left: 93, top: 41, fontSize: 13, font: "League_Script:League_Script" },
-      { text: "paths", left: 3, top: 36, fontSize: 13, font: "League_Script:League_Script" },
-      { text: "paths", left: -67, top: -13, fontSize: 13, font: "League_Script:League_Script" },
-      { text: "paths", left: -16, top: 23, fontSize: 13, font: "League_Script:League_Script" },
-      { text: "paths", left: -110, top: -47, fontSize: 13, font: "IBM_Plex_Mono:Regular" },
-      { text: "paths", left: 168, top: 155, fontSize: 13, font: "League_Script:League_Script" },
-      { text: "paths", left: 124, top: 130, fontSize: 13, font: "League_Script:League_Script" },
-      { text: "paths", left: 163, top: 130, fontSize: 13, font: "League_Script:League_Script" },
-      { text: "paths", left: 368, top: 256, fontSize: 13, font: "League_Script:League_Script" },
-      { text: "paths", left: 329, top: 255, fontSize: 13, font: "League_Script:League_Script" },
-      { text: "paths", left: 279, top: 277, fontSize: 13, font: "League_Script:League_Script" },
-      { text: "paths", left: 129, top: 233, fontSize: 13, font: "League_Script:League_Script" },
-      { text: "paths", left: 207, top: 245, fontSize: 13, font: "League_Script:League_Script" },
-      { text: "paths", left: 273, top: 200, fontSize: 13, font: "League_Script:League_Script" },
-      { text: "paths", left: 212, top: 74, fontSize: 13, font: "League_Script:League_Script" },
-      { text: "paths", left: 207, top: 37, fontSize: 13, font: "League_Script:League_Script" },
-      { text: "paths", left: 264, top: 52, fontSize: 13, font: "League_Script:League_Script" },
-      { text: "paths", left: 351, top: 301, fontSize: 13, font: "League_Script:League_Script" },
-      { text: "paths", left: 212, top: 305, fontSize: 13, font: "League_Script:League_Script" },
-      { text: "paths", left: 182, top: 307, fontSize: 13, font: "League_Script:League_Script" },
-      { text: "paths", left: 1029, top: 118, fontSize: 13, font: "League_Script:League_Script" },
-      { text: "paths", left: 1136, top: 53, fontSize: 13, font: "League_Script:League_Script" },
-      { text: "paths", left: 1174, top: 45, fontSize: 13, font: "League_Script:League_Script" },
-      { text: "paths", left: 1195, top: 31, fontSize: 13, font: "League_Script:League_Script" },
-      { text: "paths", left: 1241, top: 26, fontSize: 13, font: "League_Script:League_Script" },
-      { text: "paths", left: 1151, top: 29, fontSize: 13, font: "League_Script:League_Script" },
-      { text: "paths", left: 143, top: 304, fontSize: 13, font: "League_Script:League_Script" },
-      { text: "paths", left: 37, top: 120, fontSize: 13, font: "League_Script:League_Script" },
-      { text: "the garden of forking paths", left: 920, top: 34, fontSize: 13, font: "League_Script:League_Script" },
-      { text: "the garden of forking paths", left: 322, top: 99, fontSize: 16, font: "League_Script:League_Script" },
-      { text: "the garden of forking paths", left: 701, top: 88, fontSize: 16, font: "League_Script:League_Script" },
-      { text: "the garden of forking paths", left: 431, top: 84, fontSize: 16, font: "League_Script:League_Script" },
-      { text: "the garden of forking paths", left: 806, top: 39, fontSize: 13, font: "League_Script:League_Script" },
-      { text: "the garden of forking paths", left: 1028, top: 20, fontSize: 13, font: "League_Script:League_Script" },
-      { text: "the garden of forking paths", left: 750, top: 20, fontSize: 13, font: "League_Script:League_Script" },
-      { text: "the garden of forking paths", left: 627, top: 523, fontSize: 24, font: "League_Script:League_Script" },
-      { text: "the garden of forking paths", left: 485, top: 568, fontSize: 24, font: "League_Script:League_Script" },
-      { text: "the garden of forking paths", left: 510, top: 603, fontSize: 24, font: "League_Script:League_Script" },
-      { text: "the garden of forking paths", left: 549, top: 603, fontSize: 24, font: "League_Script:League_Script" },
-      { text: "the garden of forking paths", left: 588, top: 698, fontSize: 24, font: "League_Script:League_Script" },
-      { text: "the garden of forking paths", left: 588, top: 748, fontSize: 24, font: "League_Script:League_Script" },
-      { text: "the garden of forking paths", left: 588, top: 618, fontSize: 24, font: "League_Script:League_Script" },
-      { text: "the garden of forking paths", left: 402, top: 663, fontSize: 24, font: "League_Script:League_Script" },
-      { text: "the garden of forking paths", left: 588, top: 723, fontSize: 24, font: "League_Script:League_Script" },
-      { text: "the garden of forking paths", left: 485, top: 653, fontSize: 24, font: "League_Script:League_Script" },
-      { text: "the garden of forking paths", left: 524, top: 698, fontSize: 24, font: "League_Script:League_Script" },
-      { text: "the garden of forking paths", left: 510, top: 748, fontSize: 24, font: "League_Script:League_Script" },
-      { text: "the garden of forking paths", left: 549, top: 818, fontSize: 24, font: "League_Script:League_Script" },
-    ];
+    <!-- Back Button -->
+    <button class="back-button" id="backButton" onclick="goBackToMain()">← Back to Main</button>
 
-    const flowAnimations = new Map();
+    <div class="app" id="app">
+        <!-- Screen 1: The garden of forking paths pattern -->
+        <div class="screen screen-1" id="screen-1">
+            <p style="font-size: 13px; left: 361px; top: 52px; width: 856px; height: 120px;">the garden of forking paths</p>
+            <p style="font-size: 13px; left: 303px; top: 65px; width: 856px; height: 120px;">the garden of forking paths</p>
+            <p style="font-size: 13px; left: 600px; top: 47px; width: 856px; height: 120px;">the garden of forking paths</p>
+            <p style="font-size: 13px; left: 552px; top: 71px; width: 856px; height: 120px;">the garden of forking paths</p>
+            <p style="font-size: 13px; left: 818px; top: 58px; width: 856px; height: 120px;">the garden of forking paths</p>
+            <p style="font-size: 16px; left: 591px; top: 99px; width: 856px; height: 120px;">the garden of forking paths</p>
+            <p style="font-size: 20px; left: 445px; top: 127px; width: 856px; height: 120px;">the garden of forking paths</p>
+            <p style="font-size: 20px; left: 714px; top: 110px; width: 856px; height: 120px;">the garden of forking paths</p>
+            <p style="font-size: 20px; left: 521px; top: 146px; width: 856px; height: 120px;">the garden of forking paths</p>
+            <p style="font-size: 20px; left: 482px; top: 166px; width: 856px; height: 120px;">the garden of forking paths</p>
+            <p style="font-size: 20px; left: 465px; top: 209px; width: 856px; height: 120px;">the garden of forking paths</p>
+            <p style="font-size: 20px; left: 377px; top: 180px; width: 856px; height: 120px;">the garden of forking paths</p>
+            <p style="font-size: 20px; left: 334px; top: 147px; width: 856px; height: 120px;">the garden of forking paths</p>
+            <p style="font-size: 20px; left: 256px; top: 120px; width: 856px; height: 120px;">the garden of forking paths</p>
+            <p style="font-size: 20px; left: 617px; top: 230px; width: 856px; height: 120px;">the garden of forking paths</p>
+            <p style="font-size: 20px; left: 475px; top: 247px; width: 856px; height: 120px;">the garden of forking paths</p>
+            <p style="font-size: 20px; left: 513px; top: 254px; width: 856px; height: 120px;">the garden of forking paths</p>
+            <p style="font-size: 20px; left: 596px; top: 254px; width: 856px; height: 120px;">the garden of forking paths</p>
+            <p style="font-size: 20px; left: 492px; top: 272px; width: 856px; height: 120px;">the garden of forking paths</p>
+            <p style="font-size: 20px; left: 465px; top: 286px; width: 856px; height: 120px;">the garden of forking paths</p>
+            <p style="font-size: 20px; left: 407px; top: 283px; width: 856px; height: 120px;">the garden of forking paths</p>
+            <p style="font-size: 20px; left: 482px; top: 327px; width: 856px; height: 120px;">the garden of forking paths</p>
+            <p style="font-size: 20px; left: 521px; top: 307px; width: 856px; height: 120px;">the garden of forking paths</p>
+            <p style="font-size: 20px; left: 600px; top: 306px; width: 856px; height: 120px;">the garden of forking paths</p>
+            <p style="font-size: 20px; left: 422px; top: 343px; width: 856px; height: 120px;">the garden of forking paths</p>
+            <p style="font-size: 20px; left: 596px; top: 367px; width: 856px; height: 120px;">the garden of forking paths</p>
+            <p style="font-size: 20px; left: 534px; top: 412px; width: 856px; height: 120px;">the garden of forking paths</p>
+            <p style="font-size: 24px; left: 465px; top: 387px; width: 856px; height: 120px;">the garden of forking paths</p>
+            <p style="font-size: 24px; left: 280px; top: 387px; width: 856px; height: 120px;">the garden of forking paths</p>
+            <p style="font-size: 24px; left: 390px; top: 444px; width: 856px; height: 120px;">the garden of forking paths</p>
+            <p style="font-size: 24px; left: 424px; top: 467px; width: 856px; height: 120px;">the garden of forking paths</p>
+            <p style="font-size: 24px; left: 492px; top: 433px; width: 856px; height: 120px;">the garden of forking paths</p>
+            <p style="font-size: 24px; left: 521px; top: 357px; width: 856px; height: 120px;">the garden of forking paths</p>
+            <p style="font-size: 24px; left: 482px; top: 465px; width: 856px; height: 120px;">the garden of forking paths</p>
+            <p style="font-size: 24px; left: 378px; top: 504px; width: 856px; height: 120px;">the garden of forking paths</p>
+            <p style="font-size: 13px; left: 318px; top: 16px; width: 856px; height: 120px;">the garden of forking paths</p>
+            <p style="font-size: 13px; left: 35px; top: 14px; width: 856px; height: 120px;">the garden of forking paths</p>
+            <p style="font-size: 13px; left: 241px; top: 27px; width: 856px; height: 120px;">the garden of forking paths</p>
+            <p style="font-size: 13px; left: 2px; top: 0px; width: 856px; height: 120px;">the garden of forking paths</p>
+            <p style="font-size: 13px; left: 536px; top: 14px; width: 856px; height: 120px;">the garden of forking paths</p>
+            <p style="font-size: 13px; left: 430px; top: 0px; width: 856px; height: 120px;">the garden of forking paths</p>
+            <p style="font-size: 13px; left: 640px; top: 0px; width: 856px; height: 120px;">the garden of forking paths</p>
+            <p style="font-size: 13px; left: 852px; top: 0px; width: 856px; height: 120px;">the garden of forking paths</p>
+            <p style="font-size: 13px; left: 1068px; top: -2px; width: 856px; height: 120px;">the garden of forking paths</p>
+            <p style="font-size: 13px; left: 212px; top: 0px; width: 856px; height: 120px;">the garden of forking paths</p>
+            <p style="font-size: 13px; left: 182px; top: -27px; width: 856px; height: 120px;">the garden of forking paths</p>
+            <p style="font-size: 13px; left: 513px; top: 29px; width: 856px; height: 120px;">the garden of forking paths</p>
+            <p style="font-size: 13px; left: 475px; top: 39px; width: 856px; height: 120px;">the garden of forking paths</p>
+            <p style="font-size: 13px; left: 172px; top: 73px; width: 856px; height: 120px;">the g</p>
+            <p style="font-size: 13px; left: -16px; top: 185px; width: 856px; height: 120px;">the g</p>
+            <p style="font-size: 13px; left: 893px; top: 155px; width: 856px; height: 120px;">the g</p>
+            <p style="font-size: 13px; left: 1081px; top: 97px; width: 856px; height: 120px;">the g</p>
+            <p style="font-size: 13px; left: 1241px; top: 155px; width: 856px; height: 120px;">the g</p>
+            <p style="font-size: 13px; left: 1120px; top: 111px; width: 856px; height: 120px;">the g</p>
+            <p style="font-size: 13px; left: 1090px; top: 121px; width: 856px; height: 120px;">the g</p>
+            <p style="font-size: 13px; left: 1202px; top: 155px; width: 856px; height: 120px;">the g</p>
+            <p style="font-size: 13px; left: 1029px; top: 181px; width: 856px; height: 120px;">the g</p>
+            <p style="font-size: 13px; left: 1068px; top: 181px; width: 856px; height: 120px;">the g</p>
+            <p style="font-size: 13px; left: 1168px; top: 210px; width: 856px; height: 120px;">the g</p>
+            <p style="font-size: 13px; left: 1129px; top: 220px; width: 856px; height: 120px;">the g</p>
+            <p style="font-size: 13px; left: 1081px; top: 226px; width: 856px; height: 120px;">the g</p>
+            <p style="font-size: 13px; left: 85px; top: 99px; width: 856px; height: 120px;">paths</p>
+            <p style="font-size: 13px; left: 17px; top: 48px; width: 856px; height: 120px;">paths</p>
+            <p style="font-size: 13px; left: 54px; top: 42px; width: 856px; height: 120px;">paths</p>
+            <p style="font-size: 13px; left: 93px; top: 41px; width: 856px; height: 120px;">paths</p>
+            <p style="font-size: 13px; left: 3px; top: 36px; width: 856px; height: 120px;">paths</p>
+            <p style="font-size: 13px; left: -67px; top: -13px; width: 856px; height: 120px;">paths</p>
+            <p style="font-size: 13px; left: -16px; top: 23px; width: 856px; height: 120px;">paths</p>
+            <p class="ibm-plex" style="font-size: 13px; left: -110px; top: -47px; width: 856px; height: 120px;">paths</p>
+            <p style="font-size: 13px; left: 168px; top: 155px; width: 856px; height: 120px;">paths</p>
+            <p style="font-size: 13px; left: 124px; top: 130px; width: 856px; height: 120px;">paths</p>
+            <p style="font-size: 13px; left: 163px; top: 130px; width: 856px; height: 188px;">paths</p>
+            <p style="font-size: 13px; left: 368px; top: 256px; width: 856px; height: 188px;">paths</p>
+            <p style="font-size: 13px; left: 329px; top: 255px; width: 856px; height: 188px;">paths</p>
+            <p style="font-size: 13px; left: 279px; top: 277px; width: 856px; height: 188px;">paths</p>
+            <p style="font-size: 13px; left: 129px; top: 233px; width: 856px; height: 188px;">paths</p>
+            <p style="font-size: 13px; left: 207px; top: 245px; width: 856px; height: 188px;">paths</p>
+            <p style="font-size: 13px; left: 273px; top: 200px; width: 856px; height: 188px;">paths</p>
+            <p style="font-size: 13px; left: 212px; top: 74px; width: 856px; height: 188px;">paths</p>
+            <p style="font-size: 13px; left: 207px; top: 37px; width: 856px; height: 188px;">paths</p>
+            <p style="font-size: 13px; left: 264px; top: 52px; width: 856px; height: 188px;">paths</p>
+            <p style="font-size: 13px; left: 351px; top: 301px; width: 856px; height: 188px;">paths</p>
+            <p style="font-size: 13px; left: 212px; top: 305px; width: 856px; height: 188px;">paths</p>
+            <p style="font-size: 13px; left: 182px; top: 307px; width: 856px; height: 188px;">paths</p>
+            <p style="font-size: 13px; left: 1029px; top: 118px; width: 856px; height: 188px;">paths</p>
+            <p style="font-size: 13px; left: 1136px; top: 53px; width: 856px; height: 188px;">paths</p>
+            <p style="font-size: 13px; left: 1174px; top: 45px; width: 856px; height: 188px;">paths</p>
+            <p style="font-size: 13px; left: 1195px; top: 31px; width: 856px; height: 188px;">paths</p>
+            <p style="font-size: 13px; left: 1241px; top: 26px; width: 856px; height: 188px;">paths</p>
+            <p style="font-size: 13px; left: 1151px; top: 29px; width: 856px; height: 188px;">paths</p>
+            <p style="font-size: 13px; left: 143px; top: 304px; width: 856px; height: 188px;">paths</p>
+            <p style="font-size: 13px; left: 37px; top: 120px; width: 856px; height: 120px;">paths</p>
+            <p style="font-size: 13px; left: 920px; top: 34px; width: 856px; height: 120px;">the garden of forking paths</p>
+            <p style="font-size: 16px; left: 322px; top: 99px; width: 856px; height: 120px;">the garden of forking paths</p>
+            <p style="font-size: 16px; left: 701px; top: 88px; width: 856px; height: 120px;">the garden of forking paths</p>
+            <p style="font-size: 16px; left: 431px; top: 84px; width: 856px; height: 120px;">the garden of forking paths</p>
+            <p style="font-size: 13px; left: 806px; top: 39px; width: 856px; height: 120px;">the garden of forking paths</p>
+            <p style="font-size: 13px; left: 1028px; top: 20px; width: 856px; height: 120px;">the garden of forking paths</p>
+            <p style="font-size: 13px; left: 750px; top: 20px; width: 856px; height: 120px;">the garden of forking paths</p>
+            <p style="font-size: 24px; left: 627px; top: 523px; width: 856px; height: 120px;">the garden of forking paths</p>
+            <p style="font-size: 24px; left: 485px; top: 568px; width: 856px; height: 120px;">the garden of forking paths</p>
+            <p style="font-size: 24px; left: 510px; top: 603px; width: 856px; height: 120px;">the garden of forking paths</p>
+            <p style="font-size: 24px; left: 549px; top: 603px; width: 856px; height: 120px;">the garden of forking paths</p>
+            <p style="font-size: 24px; left: 588px; top: 698px; width: 856px; height: 120px;">the garden of forking paths</p>
+            <p style="font-size: 24px; left: 588px; top: 748px; width: 856px; height: 120px;">the garden of forking paths</p>
+            <p style="font-size: 24px; left: 588px; top: 618px; width: 856px; height: 120px;">the garden of forking paths</p>
+            <p style="font-size: 24px; left: 402px; top: 663px; width: 856px; height: 120px;">the garden of forking paths</p>
+            <p style="font-size: 24px; left: 588px; top: 723px; width: 856px; height: 120px;">the garden of forking paths</p>
+            <p style="font-size: 24px; left: 485px; top: 653px; width: 856px; height: 120px;">the garden of forking paths</p>
+            <p style="font-size: 24px; left: 524px; top: 698px; width: 856px; height: 120px;">the garden of forking paths</p>
+            <p style="font-size: 24px; left: 510px; top: 748px; width: 856px; height: 120px;">the garden of forking paths</p>
+            <p style="font-size: 24px; left: 549px; top: 818px; width: 856px; height: 120px;">the garden of forking paths</p>
+        </div>
 
-    function createTextElement(element, index) {
-      const p = document.createElement('p');
-      p.textContent = element.text;
-      p.className = element.font === "IBM_Plex_Mono:Regular" ? 'text-element ibm-plex' : 'text-element league-script';
-      p.style.left = element.left + 'px';
-      p.style.top = element.top + 'px';
-      p.style.fontSize = element.fontSize + 'px';
-      
-      // Create unique animation properties for each text element
-      const seed = index * 13.7;
-      const flowSpeed = (8 + (seed % 12)) * 1000;
-      const flickerSpeed = (1.5 + (seed % 2.5)) * 1000;
-      const flowDistance = window.innerWidth + 400;
-      const verticalWave = 8 + (seed % 15);
-      const flickerDelay = (seed % 2) * 500;
-      
-      // Continuous horizontal flow with gentle vertical wave
-      const flowKeyframes = [
-        { 
-          transform: `translate(0px, 0px)`,
-          offset: 0 
-        },
-        { 
-          transform: `translate(${flowDistance * 0.25}px, ${Math.sin(0.25 * Math.PI * 2) * verticalWave}px)`,
-          offset: 0.25 
-        },
-        { 
-          transform: `translate(${flowDistance * 0.5}px, ${Math.sin(0.5 * Math.PI * 2) * verticalWave}px)`,
-          offset: 0.5 
-        },
-        { 
-          transform: `translate(${flowDistance * 0.75}px, ${Math.sin(0.75 * Math.PI * 2) * verticalWave}px)`,
-          offset: 0.75 
-        },
-        { 
-          transform: `translate(${flowDistance}px, 0px)`,
-          offset: 1 
+        <!-- Screen 2: Symbolic text with keywords -->
+        <div class="screen screen-2" id="screen-2">
+            <p style="left: 75px; top: 73px; width: 1255px;">
+                <span style="line-height: normal; font-size: 24px;">=.   '  . (/     ?                 </span>
+                <span class="keyword-link" onclick="navigateToPage(3)" style="line-height: normal; font-size: 40px; cursor: pointer;">time</span>
+                <span style="line-height: normal; font-size: 24px;">.  | . \ .    ) .     ?</span>
+            </p>
+            <p style="height: 81px; left: 439px; top: 418px; width: 1074px;">
+                <span class="keyword-link" onclick="navigateToPage(4)" style="line-height: normal; font-size: 40px; cursor: pointer;">forking</span>
+                <span style="line-height: normal; font-size: 24px;"><>        )(   | .       ''' .  </span>
+                <span style="line-height: normal; font-size: 40px;">   </span>
+            </p>
+            <p style="height: 79px; left: 310px; top: 296px; width: 1280px;">
+                <span style="line-height: normal; font-size: 24px;">!  -       :    ,        '                      </span>
+                <span class="keyword-link" onclick="navigateToPage(5)" style="line-height: normal; font-size: 40px; cursor: pointer;">interpretation</span>
+                <span style="line-height: normal; font-size: 24px;">. _____________</span>
+                <span style="line-height: normal; font-size: 40px;">            </span>
+            </p>
+            <p style="height: 74px; left: 532px; top: 642px; width: 835px;">
+                <span class="keyword-link" onclick="navigateToPage(6)" style="line-height: normal; font-size: 40px; cursor: pointer;">false</span>
+                <span style="line-height: normal; font-size: 24px;">       .....//     (        )</span>
+            </p>
+            <p style="height: 73px; left: 653px; top: 509px; width: 897px;">
+                <span style="line-height: normal; font-size: 24px;">)))) .    ::  ?</span>
+                <span class="keyword-link" onclick="navigateToPage(7)" style="line-height: normal; font-size: 40px; cursor: pointer;">infinity</span>
+            </p>
+            <p style="height: 72px; left: 243px; top: 199px; width: 1280px;">
+                <span style="line-height: normal; font-size: 24px;">_ - _ - .  (       </span>
+                <span class="keyword-link" onclick="navigateToPage(8)" style="line-height: normal; font-size: 40px; cursor: pointer;">labyrinth</span>
+                <span style="line-height: normal; font-size: 24px;">+ ' .    :    | .   /\  ,  . .</span>
+                <span style="line-height: normal; font-size: 40px;"> </span>
+            </p>
+        </div>
+
+        <!-- Screen 3 -->
+        <div class="screen screen-3 hidden" id="screen-3">
+            <p style="font-size: 40px; left: 767px; top: -94px; width: 227px; height: 70px;">The damp</p>
+            <p style="font-size: 96px; left: 745px; top: -71px; width: 357px; height: 110px;">Path</p>
+            <p style="font-size: 24px; left: 669px; top: 112px; width: 504px; height: 134px;">zigzagged like those</p>
+            <p style="font-size: 15px; left: 669px; top: 167px; width: 504px; height: 134px;">of my childhood.</p>
+            <p style="font-size: 40px; left: 47px; top: 316px; width: 227px; height: 70px;">When we</p>
+            <p style="font-size: 40px; left: 684px; top: 720px; width: 227px; height: 70px;">Lost</p>
+            <p style="font-size: 96px; left: 25px; top: 339px; width: 453px; height: 110px;">Reached</p>
+            <p style="font-size: 96px; left: 478px; top: 743px; width: 778px; height: 91px;">Encyclopedia</p>
+            <p style="font-size: 96px; left: 1160px; top: 431px; width: 357px; height: 110px;">Cen</p>
+            <p style="font-size: 24px; left: 175px; top: 449px; width: 832px; height: 134px;">we went into a </p>
+            <p style="font-size: 24px; left: 665px; top: 299px; width: 19px; height: 299px;">phoenix</p>
+            <p style="font-size: 24px; left: 623px; top: 853px; width: 504px; height: 134px;">zigzagged like those</p>
+            <p style="font-size: 13px; left: 180px; top: 487px; width: 504px; height: 134px;">library filled with books</p>
+            <p style="font-size: 40px; left: 161px; top: 500px; width: 504px; height: 134px;">East and West.</p>
+        </div>
+
+        <!-- Screen 4 -->
+        <div class="screen screen-4 hidden" id="screen-4">
+            <p style="font-size: 40px; left: 730px; top: -21px; width: 227px; height: 70px;">The damp</p>
+            <p style="font-size: 96px; left: 708px; top: 2px; width: 357px; height: 110px;">Path</p>
+            <p style="font-size: 24px; left: 669px; top: 112px; width: 504px; height: 134px;">zigzagged like those</p>
+            <p style="font-size: 15px; left: 669px; top: 167px; width: 504px; height: 134px;">of my childhood.</p>
+            <p style="font-size: 40px; left: 47px; top: 316px; width: 227px; height: 70px;">When we</p>
+            <p style="font-size: 40px; left: 684px; top: 720px; width: 227px; height: 70px;">Lost</p>
+            <p style="font-size: 96px; left: 25px; top: 339px; width: 453px; height: 110px;">Reached</p>
+            <p style="font-size: 96px; left: 478px; top: 743px; width: 778px; height: 91px;">Encyclopedia</p>
+            <p style="font-size: 96px; left: 1160px; top: 431px; width: 357px; height: 110px;">Cen</p>
+            <p style="font-size: 24px; left: 175px; top: 449px; width: 832px; height: 134px;">we went into a </p>
+            <p style="font-size: 24px; left: 665px; top: 299px; width: 19px; height: 299px;">phoenix</p>
+            <p style="font-size: 24px; left: 623px; top: 853px; width: 504px; height: 134px;">zigzagged like those</p>
+            <p style="font-size: 13px; left: 180px; top: 487px; width: 504px; height: 134px;">library filled with books</p>
+            <p style="font-size: 40px; left: 161px; top: 500px; width: 504px; height: 134px;">East and West.</p>
+        </div>
+
+        <!-- Screen 5 -->
+        <div class="screen screen-5 hidden" id="screen-5">
+            <p style="font-size: 40px; left: 730px; top: -21px; width: 227px; height: 70px;">The damp</p>
+            <p style="font-size: 96px; left: 708px; top: 2px; width: 357px; height: 110px;">Path</p>
+            <p style="font-size: 24px; left: 669px; top: 112px; width: 504px; height: 134px;">zigzagged like those</p>
+            <p style="font-size: 15px; left: 669px; top: 167px; width: 504px; height: 134px;">of my childhood.</p>
+            <p style="font-size: 40px; left: 47px; top: 316px; width: 227px; height: 70px;">When we</p>
+            <p style="font-size: 40px; left: 684px; top: 720px; width: 227px; height: 70px;">Lost</p>
+            <p style="font-size: 96px; left: 25px; top: 339px; width: 453px; height: 110px;">Reached</p>
+            <p style="font-size: 96px; left: 478px; top: 743px; width: 778px; height: 91px;">Encyclopedia</p>
+            <p style="font-size: 96px; left: 1160px; top: 431px; width: 357px; height: 110px;">Cen</p>
+            <p style="font-size: 24px; left: 175px; top: 449px; width: 832px; height: 134px;">we went into a </p>
+            <p style="font-size: 24px; left: 665px; top: 299px; width: 19px; height: 299px;">phoenix</p>
+            <p style="font-size: 24px; left: 623px; top: 853px; width: 504px; height: 134px;">zigzagged like those</p>
+            <p style="font-size: 13px; left: 180px; top: 487px; width: 504px; height: 134px;">library filled with books</p>
+            <p style="font-size: 40px; left: 161px; top: 500px; width: 504px; height: 134px;">East and West.</p>
+        </div>
+
+        <!-- Screen 6 -->
+        <div class="screen screen-6 hidden" id="screen-6">
+            <p style="font-size: 40px; left: 730px; top: -21px; width: 227px; height: 70px;">The damp</p>
+            <p style="font-size: 96px; left: 708px; top: 2px; width: 357px; height: 110px;">Path</p>
+            <p style="font-size: 24px; left: 669px; top: 112px; width: 504px; height: 134px;">zigzagged like those</p>
+            <p style="font-size: 15px; left: 669px; top: 167px; width: 504px; height: 134px;">of my childhood.</p>
+            <p style="font-size: 40px; left: 47px; top: 316px; width: 227px; height: 70px;">When we</p>
+            <p style="font-size: 40px; left: 684px; top: 720px; width: 227px; height: 70px;">Lost</p>
+            <p style="font-size: 96px; left: 25px; top: 339px; width: 453px; height: 110px;">Reached</p>
+            <p style="font-size: 96px; left: 478px; top: 743px; width: 778px; height: 91px;">Encyclopedia</p>
+            <p style="font-size: 96px; left: 1160px; top: 431px; width: 357px; height: 110px;">Cen</p>
+            <p style="font-size: 24px; left: 175px; top: 449px; width: 832px; height: 134px;">we went into a </p>
+            <p style="font-size: 24px; left: 665px; top: 299px; width: 19px; height: 299px;">phoenix</p>
+            <p style="font-size: 24px; left: 623px; top: 853px; width: 504px; height: 134px;">zigzagged like those</p>
+            <p style="font-size: 13px; left: 180px; top: 487px; width: 504px; height: 134px;">library filled with books</p>
+            <p style="font-size: 40px; left: 161px; top: 500px; width: 504px; height: 134px;">East and West.</p>
+        </div>
+
+        <!-- Screen 7 -->
+        <div class="screen screen-7 hidden" id="screen-7">
+            <p style="font-size: 40px; left: 730px; top: -21px; width: 227px; height: 70px;">The damp</p>
+            <p style="font-size: 96px; left: 708px; top: 2px; width: 357px; height: 110px;">Path</p>
+            <p style="font-size: 24px; left: 669px; top: 112px; width: 504px; height: 134px;">zigzagged like those</p>
+            <p style="font-size: 15px; left: 669px; top: 167px; width: 504px; height: 134px;">of my childhood.</p>
+            <p style="font-size: 40px; left: 47px; top: 316px; width: 227px; height: 70px;">When we</p>
+            <p style="font-size: 40px; left: 684px; top: 720px; width: 227px; height: 70px;">Lost</p>
+            <p style="font-size: 96px; left: 25px; top: 339px; width: 453px; height: 110px;">Reached</p>
+            <p style="font-size: 96px; left: 478px; top: 743px; width: 778px; height: 91px;">Encyclopedia</p>
+            <p style="font-size: 96px; left: 1160px; top: 431px; width: 357px; height: 110px;">Cen</p>
+            <p style="font-size: 24px; left: 175px; top: 449px; width: 832px; height: 134px;">we went into a </p>
+            <p style="font-size: 24px; left: 665px; top: 299px; width: 19px; height: 299px;">phoenix</p>
+            <p style="font-size: 24px; left: 623px; top: 853px; width: 504px; height: 134px;">zigzagged like those</p>
+            <p style="font-size: 13px; left: 180px; top: 487px; width: 504px; height: 134px;">library filled with books</p>
+            <p style="font-size: 40px; left: 161px; top: 500px; width: 504px; height: 134px;">East and West.</p>
+        </div>
+
+        <!-- Screen 8 -->
+        <div class="screen screen-8 hidden" id="screen-8">
+            <p style="font-size: 40px; left: 730px; top: -21px; width: 227px; height: 70px;">The damp</p>
+            <p style="font-size: 96px; left: 708px; top: 2px; width: 357px; height: 110px;">Path</p>
+            <p style="font-size: 24px; left: 669px; top: 112px; width: 504px; height: 134px;">zigzagged like those</p>
+            <p style="font-size: 15px; left: 669px; top: 167px; width: 504px; height: 134px;">of my childhood.</p>
+            <p style="font-size: 40px; left: 47px; top: 316px; width: 227px; height: 70px;">When we</p>
+            <p style="font-size: 40px; left: 684px; top: 720px; width: 227px; height: 70px;">Lost</p>
+            <p style="font-size: 96px; left: 25px; top: 339px; width: 453px; height: 110px;">Reached</p>
+            <p style="font-size: 96px; left: 478px; top: 743px; width: 778px; height: 91px;">Encyclopedia</p>
+            <p style="font-size: 96px; left: 1160px; top: 431px; width: 357px; height: 110px;">Cen</p>
+            <p style="font-size: 24px; left: 175px; top: 449px; width: 832px; height: 134px;">we went into a </p>
+            <p style="font-size: 24px; left: 665px; top: 299px; width: 19px; height: 299px;">phoenix</p>
+            <p style="font-size: 24px; left: 623px; top: 853px; width: 504px; height: 134px;">zigzagged like those</p>
+            <p style="font-size: 13px; left: 180px; top: 487px; width: 504px; height: 134px;">library filled with books</p>
+            <p style="font-size: 40px; left: 161px; top: 500px; width: 504px; height: 134px;">East and West.</p>
+        </div>
+    </div>
+
+    <script>
+        let currentPage = 1;
+
+        // Prevent scrolling beyond page 2
+        window.addEventListener('scroll', function(e) {
+            const scrollPosition = window.scrollY;
+            const viewportHeight = window.innerHeight;
+            
+            // If we're on page 2 and trying to scroll down, prevent it
+            if (scrollPosition >= viewportHeight && scrollPosition < viewportHeight * 2) {
+                if (document.documentElement.scrollTop > viewportHeight * 2 - 100) {
+                    window.scrollTo(0, viewportHeight);
+                }
+            }
+        });
+
+        function navigateToPage(page) {
+            currentPage = page;
+            
+            // Hide first two pages
+            document.getElementById('screen-1').classList.add('hidden');
+            document.getElementById('screen-2').classList.add('hidden');
+            
+            // Hide all screens 3-8
+            for (let i = 3; i <= 8; i++) {
+                document.getElementById('screen-' + i).classList.add('hidden');
+                document.getElementById('screen-' + i).classList.remove('active-page');
+            }
+            
+            // Show the selected page
+            document.getElementById('screen-' + page).classList.remove('hidden');
+            document.getElementById('screen-' + page).classList.add('active-page');
+            
+            // Show back button
+            document.getElementById('backButton').classList.add('visible');
+            
+            // Lock scrolling
+            const app = document.getElementById('app');
+            app.style.overflow = 'hidden';
+            app.style.height = '100vh';
+            
+            window.scrollTo(0, 0);
         }
-      ];
-      
-      // Opacity flickering
-      const opacityKeyframes = [
-        { opacity: 0.4, offset: 0 },
-        { opacity: 1, offset: 0.17 },
-        { opacity: 0.6, offset: 0.34 },
-        { opacity: 1, offset: 0.5 },
-        { opacity: 0.5, offset: 0.67 },
-        { opacity: 1, offset: 0.84 },
-        { opacity: 0.4, offset: 1 }
-      ];
-      
-      // Apply animations
-      const flowAnimation = p.animate(flowKeyframes, {
-        duration: flowSpeed,
-        iterations: Infinity,
-        easing: 'linear'
-      });
-      
-      const flickerAnimation = p.animate(opacityKeyframes, {
-        duration: flickerSpeed,
-        iterations: Infinity,
-        easing: 'ease-in-out',
-        delay: flickerDelay
-      });
-      
-      // Store animations
-      flowAnimations.set(p, { flow: flowAnimation, flicker: flickerAnimation });
-      
-      // Pause animations on hover for stable interaction
-      p.addEventListener('mouseenter', () => {
-        flowAnimation.pause();
-        flickerAnimation.pause();
-      });
-      
-      p.addEventListener('mouseleave', () => {
-        flowAnimation.play();
-        flickerAnimation.play();
-      });
-      
-      return p;
-    }
 
-    // Initialize flowing text section
-    const container = document.getElementById('section1');
-    textElements.forEach((element, index) => {
-      const textEl = createTextElement(element, index);
-      container.appendChild(textEl);
-    });
-  </script>
+        function showBackButton() {
+            const backButton = document.querySelector('.back-button');
+            backButton.classList.add('visible');
+        }
+
+        function hideBackButton() {
+            const backButton = document.querySelector('.back-button');
+            backButton.classList.remove('visible');
+        }
+
+        document.querySelector('.back-button').addEventListener('click', function() {
+            currentPage = 2;
+            
+            // Hide all screens 3-8
+            for (let i = 3; i <= 8; i++) {
+                document.getElementById('screen-' + i).classList.add('hidden');
+                document.getElementById('screen-' + i).classList.remove('active-page');
+            }
+            
+            // Show the selected page
+            document.getElementById('screen-2').classList.remove('hidden');
+            document.getElementById('screen-2').classList.add('active-page');
+            
+            // Lock scrolling
+            const app = document.getElementById('app');
+            app.style.overflow = 'hidden';
+            app.style.height = '100vh';
+            
+            window.scrollTo(0, 0);
+        });
+
+        function goBackToMain() {
+            currentPage = 1;
+            
+            // Hide all screens 3-8
+            for (let i = 3; i <= 8; i++) {
+                document.getElementById('screen-' + i).classList.add('hidden');
+                document.getElementById('screen-' + i).classList.remove('active-page');
+            }
+            
+            // Show first two pages
+            document.getElementById('screen-1').classList.remove('hidden');
+            document.getElementById('screen-2').classList.remove('hidden');
+            
+            // Hide back button
+            document.getElementById('backButton').classList.remove('visible');
+            
+            // Unlock scrolling
+            const app = document.getElementById('app');
+            app.style.overflow = '';
+            app.style.height = '';
+            
+            window.scrollTo(0, 0);
+        }
+    </script>
 </body>
 </html>
