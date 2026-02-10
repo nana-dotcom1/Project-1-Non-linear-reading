@@ -1,5 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Fasthand&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=League+Script&family=IBM+Plex+Mono&display=swap');
 
 * {
   margin: 0;
@@ -7,65 +6,158 @@
   box-sizing: border-box;
 }
 
-body, html {
+html, body {
+  font-family: 'League Script', cursive !important;
+  overflow-x: hidden;
+  overflow-y: auto;
+  margin: 0;
+  padding: 0;
   width: 100%;
   height: 100%;
-  overflow: hidden;
+  background: rgb(27, 27, 55) !important;
 }
 
-#container {
-  width: 100%;
-  height: 100%;
+.app {
+  width: 100vw;
+}
+
+.screen {
   position: relative;
-  background-image: linear-gradient(rgba(255, 255, 255, 0) 0%, rgba(27, 27, 55, 0.2) 100%), 
-                    linear-gradient(90deg, rgb(27, 27, 55) 0%, rgb(27, 27, 55) 100%);
+  width: 100%;
+  height: 100vh;
+  min-height: 100vh;
   color: white;
-  line-height: normal;
-  font-style: normal;
   white-space: pre-wrap;
-  overflow: hidden;
+  font-style: normal;
 }
 
-.text-element {
+.screen p {
   position: absolute;
-  height: 120px;
-  width: 856px;
-  cursor: pointer;
-  transition: transform 0.3s ease;
+  margin: 0;
 }
 
-.text-element.league-script {
-  font-family: 'League_Script:League_Script', sans-serif;
+/* Navigation */
+.navigation {
+  display: none;
 }
 
-.text-element.ibm-plex {
-  font-family: 'IBM_Plex_Mono:Regular', sans-serif;
+/* Screen backgrounds */
+.screen-1 {
+  background: linear-gradient(rgba(255, 255, 255, 0) 0%, rgba(27, 27, 55, 0.2) 100%), 
+              linear-gradient(90deg, rgb(27, 27, 55) 0%, rgb(27, 27, 55) 100%);
+  line-height: normal;
 }
 
-.text-element:hover {
-  transform: scale(1.05);
-  text-shadow: 0 0 8px rgba(255, 255, 255, 0.8), 
-               0 0 16px rgba(255, 255, 255, 0.6), 
-               0 0 24px rgba(255, 255, 255, 0.4);
-  animation: glow-pulse 1.5s ease-in-out infinite;
-  opacity: 1 !important;
-  z-index: 10;
+.screen-1 p {
+  animation: riverGlow 4s ease-in-out infinite;
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.5),
+               0 0 20px rgba(255, 255, 255, 0.3),
+               0 0 30px rgba(255, 255, 255, 0.2);
 }
 
-@keyframes glow-pulse {
+.screen-1 p:nth-child(odd) {
+  animation: riverGlow 4s ease-in-out infinite;
+  animation-delay: 0.5s;
+}
+
+.screen-1 p:nth-child(3n) {
+  animation: riverGlow 3.5s ease-in-out infinite;
+  animation-delay: 1s;
+}
+
+.screen-1 p:nth-child(5n) {
+  animation: riverGlow 4.5s ease-in-out infinite;
+  animation-delay: 1.5s;
+}
+
+@keyframes riverGlow {
   0% {
-    text-shadow: 0 0 8px rgba(255, 255, 255, 0.8), 
-                 0 0 16px rgba(255, 255, 255, 0.6), 
-                 0 0 24px rgba(255, 255, 255, 0.4);
+    opacity: 0.3;
+    transform: translateX(0) translateY(0);
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.3),
+                 0 0 10px rgba(255, 255, 255, 0.2);
+  }
+  25% {
+    opacity: 0.7;
+    transform: translateX(-2px) translateY(1px);
+    text-shadow: 0 0 15px rgba(255, 255, 255, 0.6),
+                 0 0 25px rgba(255, 255, 255, 0.4),
+                 0 0 35px rgba(255, 255, 255, 0.2);
   }
   50% {
-    text-shadow: 0 0 12px rgba(255, 255, 255, 1), 
-                 0 0 24px rgba(255, 255, 255, 0.8), 
-                 0 0 36px rgba(255, 255, 255, 0.6);
+    opacity: 1;
+    transform: translateX(2px) translateY(-1px);
+    text-shadow: 0 0 20px rgba(255, 255, 255, 0.8),
+                 0 0 30px rgba(255, 255, 255, 0.5),
+                 0 0 40px rgba(255, 255, 255, 0.3);
+  }
+  75% {
+    opacity: 0.6;
+    transform: translateX(1px) translateY(2px);
+    text-shadow: 0 0 15px rgba(255, 255, 255, 0.5),
+                 0 0 25px rgba(255, 255, 255, 0.3);
   }
   100% {
-    text-shadow: 0 0 8px rgba(255, 255, 255, 0.8), 
-                 0 0 16px rgba(255, 255, 255, 0.6), 
-                 0 0 24px rgba(255, 255, 255, 0.4);
+    opacity: 0.3;
+    transform: translateX(0) translateY(0);
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.3),
+                 0 0 10px rgba(255, 255, 255, 0.2);
+  }
+}
+
+.screen-2 {
+  background: linear-gradient(rgba(255, 249, 249, 0) 0%, rgba(0, 0, 0, 0.2) 100%), 
+              linear-gradient(90deg, rgb(27, 27, 55) 0%, rgb(27, 27, 55) 100%);
+  line-height: 0;
+}
+
+.screen-2 .keyword-link {
+  transition: all 0.3s ease;
+  display: inline-block;
+}
+
+.screen-2 .keyword-link:hover {
+  text-shadow: 0 0 20px rgba(255, 255, 255, 0.9),
+               0 0 30px rgba(255, 255, 255, 0.6),
+               0 0 40px rgba(255, 255, 255, 0.4),
+               0 0 50px rgba(255, 255, 255, 0.2);
+  transform: scale(1.1);
+  color: rgba(255, 255, 255, 1);
+}
+
+.screen-2 span:not(.keyword-link) {
+  transition: all 0.3s ease;
+}
+
+.screen-2 span:not(.keyword-link):hover {
+  text-shadow: 0 0 15px rgba(255, 255, 255, 0.7),
+               0 0 25px rgba(255, 255, 255, 0.4),
+               0 0 35px rgba(255, 255, 255, 0.2);
+}
+
+.hidden {
+  display: none !important;
+}
+
+.active-page {
+  position: fixed !important;
+  top: 0;
+  left: 0;
+}
+
+.screen-3, .screen-4, .screen-5, .screen-6, .screen-7, .screen-8 {
+  background: linear-gradient(rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.2) 100%), 
+              linear-gradient(90deg, rgb(27, 27, 55) 0%, rgb(27, 27, 55) 100%);
+  line-height: normal;
+}
+
+.ibm-plex {
+  font-family: 'IBM Plex Mono', monospace;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .screen p {
+    font-size: 0.7em !important;
   }
 }
