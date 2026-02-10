@@ -11,31 +11,45 @@
       box-sizing: border-box;
     }
 
-    body, html {
-      width: 100%;
-      height: 100%;
-      overflow: hidden;
+    html {
+      height: auto;
+      overflow-y: auto;
+      overflow-x: hidden;
     }
 
-    #container {
+    body {
       width: 100%;
-      height: 100%;
+      height: auto;
+      min-height: 100vh;
+      overflow-y: auto;
+      overflow-x: hidden;
+      scroll-behavior: smooth;
+    }
+
+    .section {
+      width: 100%;
+      min-height: 100vh;
+      height: 100vh;
       position: relative;
       background-image: linear-gradient(rgba(255, 255, 255, 0) 0%, rgba(27, 27, 55, 0.2) 100%), linear-gradient(90deg, rgb(27, 27, 55) 0%, rgb(27, 27, 55) 100%);
       color: white;
       line-height: normal;
       font-style: normal;
       white-space: pre-wrap;
+    }
+
+    #section1 {
       overflow: hidden;
     }
 
+    /* Flowing text section styles */
     .text-element {
       position: absolute;
       height: 120px;
       width: 856px;
       cursor: pointer;
-      transition: transform 0.3s ease;
       will-change: transform, opacity;
+      pointer-events: auto;
     }
 
     .text-element.league-script {
@@ -47,13 +61,42 @@
     }
 
     .text-element:hover {
-      transform: scale(1.05) !important;
       text-shadow: 0 0 8px rgba(255, 255, 255, 0.8), 
                    0 0 16px rgba(255, 255, 255, 0.6), 
                    0 0 24px rgba(255, 255, 255, 0.4);
       animation: glow-pulse 1.5s ease-in-out infinite !important;
       opacity: 1 !important;
-      z-index: 10;
+      z-index: 100;
+    }
+
+    /* Static text section styles */
+    .static-text {
+      position: absolute;
+      cursor: default;
+    }
+
+    .static-text.league-script {
+      font-family: 'League Script', cursive, sans-serif;
+    }
+
+    .static-text.ibm-plex {
+      font-family: 'IBM Plex Mono', monospace, sans-serif;
+    }
+
+    .word-highlight {
+      cursor: pointer;
+      display: inline-block;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+
+    .word-highlight:hover {
+      text-shadow: 0 0 8px rgba(255, 255, 255, 0.8), 
+                   0 0 16px rgba(255, 255, 255, 0.6), 
+                   0 0 24px rgba(255, 255, 255, 0.4);
+      animation: glow-pulse 1.5s ease-in-out infinite;
+      transform: scale(1.1);
+      z-index: 100;
     }
 
     @keyframes glow-pulse {
@@ -79,7 +122,46 @@
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400&family=League+Script&display=swap" rel="stylesheet">
 </head>
 <body>
-  <div id="container"></div>
+  <!-- Section 1: Flowing texts -->
+  <div id="section1" class="section"></div>
+  
+  <!-- Section 2: Static texts with keywords -->
+  <div id="section2" class="section">
+    <p class="static-text league-script" style="position: absolute; height: 120px; left: 457px; font-size: 24px; top: 122px; width: 856px;">the garden of forking paths</p>
+    
+    <p class="static-text ibm-plex" style="position: absolute; line-height: 0; left: 75px; font-size: 0px; top: 73px; width: 1255px;">
+      <span style="line-height: normal; font-size: 24px;">= .   '  . (/     ?                 </span>
+      <span class="word-highlight" style="line-height: normal; font-size: 40px;">time  </span>
+      <span style="line-height: normal; font-size: 24px;">.  | . \ .    ) .     ?</span>
+    </p>
+    
+    <p class="static-text ibm-plex" style="position: absolute; height: 81px; line-height: 0; left: 439px; font-size: 0px; top: 418px; width: 1074px;">
+      <span class="word-highlight" style="line-height: normal; font-size: 40px;">forking </span>
+      <span style="line-height: normal; font-size: 24px;">&lt;&gt;        )(   | .       ''' . </span>
+    </p>
+    
+    <p class="static-text ibm-plex" style="position: absolute; height: 79px; line-height: 0; left: 310px; font-size: 0px; top: 296px; width: 1280px;">
+      <span style="line-height: normal; font-size: 24px;">!  -       :    ,        '                      </span>
+      <span class="word-highlight" style="line-height: normal; font-size: 40px;">interpretation </span>
+      <span style="line-height: normal; font-size: 24px;">. _____________</span>
+    </p>
+    
+    <p class="static-text ibm-plex" style="position: absolute; height: 74px; line-height: 0; left: 532px; font-size: 0px; top: 642px; width: 835px;">
+      <span class="word-highlight" style="line-height: normal; font-size: 40px;">false</span>
+      <span style="line-height: normal; font-size: 24px;">       .....//     (        )</span>
+    </p>
+    
+    <p class="static-text ibm-plex" style="position: absolute; height: 73px; line-height: 0; left: 653px; font-size: 0px; top: 509px; width: 897px;">
+      <span style="line-height: normal; font-size: 24px;">)))) .    ::  ?</span>
+      <span class="word-highlight" style="line-height: normal; font-size: 40px;">         infinity</span>
+    </p>
+    
+    <p class="static-text ibm-plex" style="position: absolute; height: 72px; line-height: 0; left: 243px; font-size: 0px; top: 199px; width: 1280px;">
+      <span style="line-height: normal; font-size: 24px;">_ - _ - .  (       </span>
+      <span class="word-highlight" style="line-height: normal; font-size: 40px;">labyrinth          </span>
+      <span style="line-height: normal; font-size: 24px;">+ ' .    :    | .   /\  ,  . .</span>
+    </p>
+  </div>
   
   <script>
     const textElements = [
@@ -197,6 +279,8 @@
       { text: "the garden of forking paths", left: 549, top: 818, fontSize: 24, font: "League_Script:League_Script" },
     ];
 
+    const flowAnimations = new Map();
+
     function createTextElement(element, index) {
       const p = document.createElement('p');
       p.textContent = element.text;
@@ -207,13 +291,13 @@
       
       // Create unique animation properties for each text element
       const seed = index * 13.7;
-      const flowSpeed = (8 + (seed % 12)) * 1000; // Slower, more continuous flow
+      const flowSpeed = (8 + (seed % 12)) * 1000;
       const flickerSpeed = (1.5 + (seed % 2.5)) * 1000;
-      const flowDistance = window.innerWidth + 400; // Move across entire screen
-      const verticalWave = 8 + (seed % 15); // Gentle vertical wave
+      const flowDistance = window.innerWidth + 400;
+      const verticalWave = 8 + (seed % 15);
       const flickerDelay = (seed % 2) * 500;
       
-      // Continuous horizontal flow with gentle vertical wave (like water)
+      // Continuous horizontal flow with gentle vertical wave
       const flowKeyframes = [
         { 
           transform: `translate(0px, 0px)`,
@@ -237,7 +321,7 @@
         }
       ];
       
-      // Opacity flickering (like light reflecting on water)
+      // Opacity flickering
       const opacityKeyframes = [
         { opacity: 0.4, offset: 0 },
         { opacity: 1, offset: 0.17 },
@@ -248,31 +332,39 @@
         { opacity: 0.4, offset: 1 }
       ];
       
-      // Apply continuous flow animation
+      // Apply animations
       const flowAnimation = p.animate(flowKeyframes, {
         duration: flowSpeed,
         iterations: Infinity,
-        easing: 'linear' // Linear for continuous smooth flow
+        easing: 'linear'
       });
       
-      // Apply flickering
-      p.animate(opacityKeyframes, {
+      const flickerAnimation = p.animate(opacityKeyframes, {
         duration: flickerSpeed,
         iterations: Infinity,
         easing: 'ease-in-out',
         delay: flickerDelay
       });
       
-      // Reset position when animation completes to create seamless loop
-      flowAnimation.onfinish = () => {
-        p.style.transform = 'translate(0px, 0px)';
-      };
+      // Store animations
+      flowAnimations.set(p, { flow: flowAnimation, flicker: flickerAnimation });
+      
+      // Pause animations on hover for stable interaction
+      p.addEventListener('mouseenter', () => {
+        flowAnimation.pause();
+        flickerAnimation.pause();
+      });
+      
+      p.addEventListener('mouseleave', () => {
+        flowAnimation.play();
+        flickerAnimation.play();
+      });
       
       return p;
     }
 
-    // Initialize
-    const container = document.getElementById('container');
+    // Initialize flowing text section
+    const container = document.getElementById('section1');
     textElements.forEach((element, index) => {
       const textEl = createTextElement(element, index);
       container.appendChild(textEl);
