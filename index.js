@@ -1,1 +1,521 @@
+let currentPage = 'page1';
+let mousePos = { x: 0, y: 0 };
 
+// Initialize the app
+function init() {
+    const appContainer = document.getElementById('app-container');
+    
+    // Create scrollable pages container
+    const scrollablePages = document.createElement('div');
+    scrollablePages.className = 'scrollable-pages';
+    scrollablePages.id = 'scrollable-pages';
+    
+    // Add Page 1
+    scrollablePages.appendChild(createPage1());
+    
+    // Add Page 2
+    scrollablePages.appendChild(createPage2());
+    
+    appContainer.appendChild(scrollablePages);
+    
+    // Add all other pages
+    appContainer.appendChild(createPage3());
+    appContainer.appendChild(createPage4());
+    appContainer.appendChild(createPage5());
+    appContainer.appendChild(createPage6());
+    appContainer.appendChild(createPage7());
+    appContainer.appendChild(createPage8());
+    
+    // Show initial pages
+    showPage('page1');
+}
+
+function showPage(pageName) {
+    currentPage = pageName;
+    
+    // Hide all pages
+    const allPages = document.querySelectorAll('.page');
+    allPages.forEach(page => page.classList.remove('active'));
+    
+    // Show/hide scrollable pages
+    const scrollablePages = document.getElementById('scrollable-pages');
+    if (pageName === 'page1' || pageName === 'page2') {
+        scrollablePages.style.display = 'block';
+    } else {
+        scrollablePages.style.display = 'none';
+        // Show the specific page
+        const page = document.getElementById(pageName);
+        if (page) page.classList.add('active');
+    }
+}
+
+// PAGE 1: River of text with moonlight glow
+function createPage1() {
+    const riverTexts = [
+        { left: 303, top: 65, size: 13 }, { left: 361, top: 52, size: 13 },
+        { left: 600, top: 47, size: 13 }, { left: 552, top: 71, size: 13 },
+        { left: 818, top: 58, size: 13 }, { left: 591, top: 99, size: 16 },
+        { left: 445, top: 127, size: 20 }, { left: 714, top: 110, size: 20 },
+        { left: 521, top: 146, size: 20 }, { left: 482, top: 166, size: 20 },
+        { left: 465, top: 209, size: 20 }, { left: 377, top: 180, size: 20 },
+        { left: 334, top: 147, size: 20 }, { left: 256, top: 120, size: 20 },
+        { left: 617, top: 230, size: 20 }, { left: 475, top: 247, size: 20 },
+        { left: 513, top: 254, size: 20 }, { left: 596, top: 254, size: 20 },
+        { left: 492, top: 272, size: 20 }, { left: 465, top: 286, size: 20 },
+        { left: 407, top: 283, size: 20 }, { left: 482, top: 327, size: 20 },
+        { left: 521, top: 307, size: 20 }, { left: 600, top: 306, size: 20 },
+        { left: 422, top: 343, size: 20 }, { left: 596, top: 367, size: 20 },
+        { left: 534, top: 412, size: 20 }, { left: 465, top: 387, size: 24 },
+        { left: 280, top: 387, size: 24 }, { left: 390, top: 444, size: 24 },
+        { left: 424, top: 467, size: 24 }, { left: 492, top: 433, size: 24 },
+        { left: 521, top: 357, size: 24 }, { left: 482, top: 465, size: 24 },
+        { left: 378, top: 504, size: 24 }, { left: 318, top: 16, size: 13 },
+        { left: 35, top: 14, size: 13 }, { left: 241, top: 27, size: 13 },
+        { left: 2, top: 0, size: 13 }, { left: 536, top: 14, size: 13 },
+        { left: 430, top: 0, size: 13 }, { left: 640, top: 0, size: 13 },
+        { left: 852, top: 0, size: 13 }, { left: 1068, top: -2, size: 13 },
+        { left: 212, top: 0, size: 13 }, { left: 182, top: -27, size: 13 },
+        { left: 513, top: 29, size: 13 }, { left: 475, top: 39, size: 13 },
+        { left: 920, top: 34, size: 13 }, { left: 322, top: 99, size: 16 },
+        { left: 701, top: 88, size: 16 }, { left: 431, top: 84, size: 16 },
+        { left: 806, top: 39, size: 13 }, { left: 1028, top: 20, size: 13 },
+        { left: 750, top: 20, size: 13 }, { left: 627, top: 523, size: 24 },
+        { left: 485, top: 568, size: 24 }, { left: 510, top: 603, size: 24 },
+        { left: 549, top: 603, size: 24 }, { left: 588, top: 698, size: 24 },
+        { left: 588, top: 748, size: 24 }, { left: 588, top: 618, size: 24 },
+        { left: 402, top: 663, size: 24 }, { left: 588, top: 723, size: 24 },
+        { left: 485, top: 653, size: 24 }, { left: 524, top: 698, size: 24 },
+        { left: 510, top: 748, size: 24 }, { left: 549, top: 818, size: 24 },
+        { left: 549, top: 775, size: 24 }
+    ];
+    
+    const pageSection = document.createElement('div');
+    pageSection.className = 'page-section';
+    pageSection.id = 'page1';
+    
+    const riverContainer = document.createElement('div');
+    riverContainer.className = 'river-container';
+    
+    riverTexts.forEach(pos => {
+        const p = document.createElement('p');
+        p.className = 'river-text';
+        p.textContent = 'the garden of forking paths';
+        p.style.left = pos.left + 'px';
+        p.style.top = pos.top + 'px';
+        p.style.fontSize = pos.size + 'px';
+        riverContainer.appendChild(p);
+    });
+    
+    pageSection.appendChild(riverContainer);
+    return pageSection;
+}
+
+// PAGE 2: Navigation menu
+function createPage2() {
+    const menuItems = [
+        { text: 'labyrinth', left: 274, top: 89, page: 'page3' },
+        { text: 'time', left: 572, top: 223, page: 'page4' },
+        { text: 'interpretation', left: 298, top: 300, page: 'page5' },
+        { text: 'forking', left: 481, top: 466, page: 'page6' },
+        { text: 'false', left: 908, top: 510, page: 'page7' },
+        { text: 'infinity', left: 341, top: 646, page: 'page8' }
+    ];
+    
+    const pageSection = document.createElement('div');
+    pageSection.className = 'page-section';
+    pageSection.id = 'page2';
+    
+    const menuContainer = document.createElement('div');
+    menuContainer.className = 'menu-container';
+    
+    menuItems.forEach(item => {
+        const p = document.createElement('p');
+        p.className = 'menu-item';
+        p.textContent = item.text;
+        p.style.left = item.left + 'px';
+        p.style.top = item.top + 'px';
+        p.onclick = () => {
+            showPage(item.page);
+            window.scrollTo(0, 0);
+        };
+        menuContainer.appendChild(p);
+    });
+    
+    pageSection.appendChild(menuContainer);
+    return pageSection;
+}
+
+// PAGE 3: Labyrinth - rotating circles
+function createPage3() {
+    const page = document.createElement('div');
+    page.className = 'page';
+    page.id = 'page3';
+    
+    const closeBtn = document.createElement('button');
+    closeBtn.className = 'close-btn';
+    closeBtn.textContent = 'X';
+    closeBtn.onclick = () => {
+        showPage('page1');
+        window.scrollTo(0, 0);
+    };
+    
+    const container = document.createElement('div');
+    container.className = 'labyrinth-container';
+    
+    const circles = [
+        { centerX: 250, centerY: 230, radius: 130 },
+        { centerX: 550, centerY: 340, radius: 130 },
+        { centerX: 750, centerY: 280, radius: 130 },
+        { centerX: 450, centerY: 520, radius: 130 }
+    ];
+    
+    circles.forEach((circle, index) => {
+        const circleEl = createCircleText(circle.centerX, circle.centerY, circle.radius, index);
+        container.appendChild(circleEl);
+    });
+    
+    page.appendChild(closeBtn);
+    page.appendChild(container);
+    
+    // Track mouse movement
+    document.addEventListener('mousemove', (e) => {
+        if (currentPage === 'page3') {
+            mousePos = { x: e.clientX, y: e.clientY };
+            updateCircleScales();
+        }
+    });
+    
+    return page;
+}
+
+function createCircleText(centerX, centerY, radius, index) {
+    const text = "An invisible labyrinth of time.";
+    const chars = text.split('');
+    const angleStep = (2 * Math.PI) / chars.length;
+    
+    const wrapper = document.createElement('div');
+    wrapper.className = 'circle-wrapper';
+    wrapper.style.left = centerX + 'px';
+    wrapper.style.top = centerY + 'px';
+    wrapper.style.width = (radius * 2) + 'px';
+    wrapper.style.height = (radius * 2) + 'px';
+    wrapper.dataset.centerX = centerX;
+    wrapper.dataset.centerY = centerY;
+    wrapper.dataset.index = index;
+    
+    chars.forEach((char, i) => {
+        const angle = i * angleStep - Math.PI / 2;
+        const x = Math.cos(angle) * radius;
+        const y = Math.sin(angle) * radius;
+        const rotation = (angle * 180 / Math.PI) + 90;
+        
+        const span = document.createElement('span');
+        span.className = 'circle-char';
+        span.textContent = char;
+        span.style.left = `calc(50% + ${x}px)`;
+        span.style.top = `calc(50% + ${y}px)`;
+        span.style.transform = `translate(-50%, -50%) rotate(${rotation}deg)`;
+        
+        wrapper.appendChild(span);
+    });
+    
+    return wrapper;
+}
+
+function updateCircleScales() {
+    const circles = document.querySelectorAll('.circle-wrapper');
+    circles.forEach(circle => {
+        const centerX = parseFloat(circle.dataset.centerX);
+        const centerY = parseFloat(circle.dataset.centerY);
+        
+        const distance = Math.sqrt(
+            Math.pow(mousePos.x - centerX, 2) + Math.pow(mousePos.y - centerY, 2)
+        );
+        
+        const maxDistance = 400;
+        const scale = Math.max(0.5, Math.min(2.5, 2.5 - (distance / maxDistance) * 2));
+        
+        circle.style.setProperty('--scale', scale);
+    });
+}
+
+// PAGE 4: Time - text avoids cursor
+function createPage4() {
+    const page = document.createElement('div');
+    page.className = 'page';
+    page.id = 'page4';
+    
+    const closeBtn = document.createElement('button');
+    closeBtn.className = 'close-btn';
+    closeBtn.textContent = 'X';
+    closeBtn.onclick = () => {
+        showPage('page1');
+        window.scrollTo(0, 0);
+    };
+    
+    const container = document.createElement('div');
+    container.className = 'time-container';
+    
+    const p = document.createElement('p');
+    p.className = 'avoid-text';
+    p.textContent = "He believed in an infinite series of times, in a dizzily growing, ever spreading network of diverging, converging and parallel times. In Ts'ui Pen's work, he chooses—simultaneously—all of them.";
+    
+    container.appendChild(p);
+    page.appendChild(closeBtn);
+    page.appendChild(container);
+    
+    // Setup word avoidance after a short delay to ensure DOM is ready
+    setTimeout(() => {
+        setupWordAvoidance(p);
+    }, 100);
+    
+    return page;
+}
+
+function setupWordAvoidance(textElement) {
+    const content = textElement.textContent;
+    const words = content.split(' ');
+    textElement.innerHTML = '';
+    
+    const wordElements = [];
+    words.forEach(word => {
+        const span = document.createElement('span');
+        span.textContent = word + ' ';
+        span.style.display = 'inline-block';
+        span.style.transition = 'transform 0.3s ease, opacity 0.3s ease';
+        textElement.appendChild(span);
+        wordElements.push(span);
+    });
+    
+    let mouseX = 0;
+    let mouseY = 0;
+    let lastUpdate = 0;
+    
+    function handleMouseMove(e) {
+        if (currentPage !== 'page4') return;
+        
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+        
+        const now = Date.now();
+        if (now - lastUpdate < 50) return;
+        lastUpdate = now;
+        
+        wordElements.forEach(word => {
+            const rect = word.getBoundingClientRect();
+            const wordCenterX = rect.left + rect.width / 2;
+            const wordCenterY = rect.top + rect.height / 2;
+            
+            const distX = mouseX - wordCenterX;
+            const distY = mouseY - wordCenterY;
+            const distance = Math.sqrt(distX * distX + distY * distY);
+            
+            if (distance < 100) {
+                const angle = Math.atan2(distY, distX);
+                const force = (100 - distance) / 2;
+                const moveX = -Math.cos(angle) * force;
+                const moveY = -Math.sin(angle) * force;
+                
+                word.style.transform = `translate3d(${moveX}px, ${moveY}px, 0)`;
+                word.style.opacity = '0.6';
+            } else {
+                word.style.transform = 'translate3d(0, 0, 0)';
+                word.style.opacity = '1';
+            }
+        });
+    }
+    
+    document.addEventListener('mousemove', handleMouseMove);
+}
+
+// PAGE 5: Interpretation - click to duplicate
+function createPage5() {
+    const page = document.createElement('div');
+    page.className = 'page';
+    page.id = 'page5';
+    
+    const closeBtn = document.createElement('button');
+    closeBtn.className = 'close-btn';
+    closeBtn.textContent = 'X';
+    closeBtn.onclick = () => {
+        showPage('page1');
+        window.scrollTo(0, 0);
+    };
+    
+    const container = document.createElement('div');
+    container.className = 'interpretation-container';
+    
+    const p = document.createElement('p');
+    p.className = 'duplicate-text';
+    
+    const words = "The Garden of Forking Paths is an enormous guessing game, or parable…".split(' ');
+    words.forEach(word => {
+        const span = document.createElement('span');
+        span.textContent = word + ' ';
+        span.style.cursor = 'pointer';
+        span.onclick = (e) => handleWordClick(e, word, container);
+        p.appendChild(span);
+    });
+    
+    container.appendChild(p);
+    page.appendChild(closeBtn);
+    page.appendChild(container);
+    
+    return page;
+}
+
+function handleWordClick(e, word, container) {
+    const rect = e.target.getBoundingClientRect();
+    const tx = (Math.random() - 0.5) * 600;
+    const ty = (Math.random() - 0.5) * 600;
+    const rotate = (Math.random() - 0.5) * 360;
+    
+    const duplicate = document.createElement('p');
+    duplicate.className = 'duplicated';
+    duplicate.textContent = word;
+    duplicate.style.left = rect.left + 'px';
+    duplicate.style.top = rect.top + 'px';
+    duplicate.style.setProperty('--tx', tx + 'px');
+    duplicate.style.setProperty('--ty', ty + 'px');
+    duplicate.style.setProperty('--rotate', rotate + 'deg');
+    
+    container.appendChild(duplicate);
+    
+    setTimeout(() => {
+        duplicate.remove();
+    }, 2000);
+}
+
+// PAGE 6: Forking - random fade
+function createPage6() {
+    const page = document.createElement('div');
+    page.className = 'page';
+    page.id = 'page6';
+    
+    const closeBtn = document.createElement('button');
+    closeBtn.className = 'close-btn';
+    closeBtn.textContent = 'X';
+    closeBtn.onclick = () => {
+        showPage('page1');
+        window.scrollTo(0, 0);
+    };
+    
+    const container = document.createElement('div');
+    container.className = 'forking-container';
+    
+    const fadeTexts = [
+        { text: 'In', left: 574, top: 64 }, { text: 'some', left: 447, top: 104 },
+        { text: 'you', left: 445, top: 144 }, { text: 'exist', left: 447, top: 184 },
+        { text: 'and', left: 447, top: 224 }, { text: 'not', left: 445, top: 264 },
+        { text: 'I,', left: 445, top: 304 }, { text: 'while', left: 445, top: 344 },
+        { text: 'in', left: 447, top: 384 }, { text: 'others', left: 447, top: 424 },
+        { text: 'I', left: 445, top: 464 }, { text: 'do,', left: 445, top: 504 },
+        { text: 'and', left: 445, top: 544 }, { text: 'you', left: 445, top: 584 },
+        { text: 'do', left: 445, top: 624 }, { text: 'not…', left: 445, top: 664 }
+    ];
+    
+    fadeTexts.forEach(item => {
+        const p = document.createElement('p');
+        p.className = 'fade-text';
+        p.textContent = item.text;
+        p.style.left = item.left + 'px';
+        p.style.top = item.top + 'px';
+        container.appendChild(p);
+    });
+    
+    page.appendChild(closeBtn);
+    page.appendChild(container);
+    
+    return page;
+}
+
+// PAGE 7: False - click to cross out
+function createPage7() {
+    const page = document.createElement('div');
+    page.className = 'page';
+    page.id = 'page7';
+    
+    const closeBtn = document.createElement('button');
+    closeBtn.className = 'close-btn';
+    closeBtn.textContent = 'X';
+    closeBtn.onclick = () => {
+        showPage('page1');
+        window.scrollTo(0, 0);
+    };
+    
+    const container = document.createElement('div');
+    container.className = 'false-container';
+    
+    const words = ['The', 'book', 'is', 'a', 'shapeless', 'mass', 'of', 'contradictory', 'rough', 'drafts.'];
+    
+    words.forEach(word => {
+        const p = document.createElement('p');
+        p.className = 'crossout-word';
+        p.textContent = word;
+        p.onclick = () => {
+            p.classList.toggle('crossed');
+        };
+        container.appendChild(p);
+    });
+    
+    page.appendChild(closeBtn);
+    page.appendChild(container);
+    
+    return page;
+}
+
+// PAGE 8: Infinity - endless scroll
+function createPage8() {
+    const page = document.createElement('div');
+    page.className = 'page';
+    page.id = 'page8';
+    
+    const closeBtn = document.createElement('button');
+    closeBtn.className = 'close-btn';
+    closeBtn.textContent = 'X';
+    closeBtn.onclick = () => {
+        showPage('page1');
+        window.scrollTo(0, 0);
+    };
+    
+    const container = document.createElement('div');
+    container.className = 'infinity-container';
+    container.id = 'infinity-container';
+    
+    // Initial text
+    for (let i = 0; i < 20; i++) {
+        addInfinityText(container);
+    }
+    
+    // Add scroll listener
+    let scrollTimeout;
+    page.addEventListener('scroll', () => {
+        clearTimeout(scrollTimeout);
+        scrollTimeout = setTimeout(() => {
+            const scrollHeight = page.scrollHeight;
+            const scrollTop = page.scrollTop;
+            const clientHeight = page.clientHeight;
+            
+            if (scrollHeight - scrollTop - clientHeight < 500) {
+                for (let i = 0; i < 5; i++) {
+                    addInfinityText(container);
+                }
+            }
+        }, 100);
+    });
+    
+    page.appendChild(closeBtn);
+    page.appendChild(container);
+    
+    return page;
+}
+
+function addInfinityText(container) {
+    const p = document.createElement('p');
+    p.className = 'infinity-text';
+    p.textContent = 'This web of time… embraces every possibility.';
+    container.appendChild(p);
+}
+
+// Initialize when DOM is loaded
+document.addEventListener('DOMContentLoaded', init);
